@@ -1,7 +1,8 @@
 const ALL_ROUTES = {
 
 
-    matchesScore: require("../scoreBoard/routes/matchesScore")
+    matchesScore: require("../scoreBoard/routes/matchesScore"),
+    series: require("../scoreBoard/routes/series"),
 
 
 }
