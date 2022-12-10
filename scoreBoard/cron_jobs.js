@@ -16,7 +16,7 @@ exports.scoreSeries = async () => {
             let seriesData = await allModels.series.findOne({
                 id: element.id
             })
-           // console.log("seriesData", a)
+            // console.log("seriesData", a)
             if (!seriesData) {
                 let series = await allModels.series({
                     id: element.id,
@@ -42,4 +42,18 @@ exports.scoreSeries = async () => {
 
 
 
+}
+
+exports.storeContinents = async () => {
+    const job = nodeCron.schedule("*/10 * * * * *", async () => {
+        let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/continents?api_token=Xy6lMx77QhdrWTq1BJo5NC0HIjU9MCO4AB8jqtlKS86bJskr1Ha5KW4iRWcW")
+        let data = (response.data)
+
+        const checkContinents = await allModels.continents.find()
+
+        if (checkContinents.length <= 0) {
+
+        }
+    })
+    job.start()
 }
