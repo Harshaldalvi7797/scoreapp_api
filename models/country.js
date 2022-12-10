@@ -1,12 +1,14 @@
 let mongoose = require("mongoose");
 
-let continentsSchema = new mongoose.Schema({
+let countrySchema = new mongoose.Schema({
 
     resource: { type: String, default: null },
-    continentName: { type: String, default: null },
+    countryId: { type: String, default: null },
+    countryName: { type: String, default: null },
+    continentId: { type: String, default: null },
     updatedAt_sport_monk: { type: String, default: null },
-    continentsId: { type: String, default: null },
+    image_path: { type: String, default: null },
 }, { timestamps: true });
 
-let continentModel = mongoose.model("continents", continentsSchema);
-module.exports = continentModel;
+let countryModel = mongoose.model("country", countrySchema);
+module.exports = countryModel;
