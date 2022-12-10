@@ -10,7 +10,6 @@ let leaguesSchema = new mongoose.Schema({
     code: { type: String, default: null },
     image_path: { type: String, default: null },
     updatedAt_sport_monk: { type: String, default: null },
-    image_path: { type: String, default: null },
     type: { type: String, default: null },
 }, { timestamps: true });
 
