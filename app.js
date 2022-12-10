@@ -10,6 +10,7 @@ apiAdminRoute.routes(app)
 
 const CronJobs = require('./scoreBoard/cron_jobs')
 CronJobs.scoreSeries();
+CronJobs.storeContinents();
 
 //CORS
 app.use((req, res, next) => {
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
 
 
 
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect("mongodb://localhost/ecomm", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

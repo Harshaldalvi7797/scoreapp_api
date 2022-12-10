@@ -32,27 +32,28 @@ exports.scoreSeries = async () => {
                 let data1 = await series.save();
                 // console.log(data1)
             }
-
-
         }
-
     });
-
     job.start()
-
-
 
 }
 
 exports.storeContinents = async () => {
     const job = nodeCron.schedule("*/10 * * * * *", async () => {
-        let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/continents?api_token=Xy6lMx77QhdrWTq1BJo5NC0HIjU9MCO4AB8jqtlKS86bJskr1Ha5KW4iRWcW")
-        let data = (response.data)
-
         const checkContinents = await allModels.continents.find()
-
         if (checkContinents.length <= 0) {
-
+            console.log("data insert")
+            let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/continents?api_token=Xy6lMx77QhdrWTq1BJo5NC0HIjU9MCO4AB8jqtlKS86bJskr1Ha5KW4iRWcW")
+            for (let index = 0; index < response.data.data.length; index++) {
+                const element = response.data.data[index];
+                let continent = await allModels.continents({
+                    resource: element.resource,
+                    continentsId: element.id,
+                    continentName: element.name,
+                    updatedAt_sport_monk: element.updated_at
+                })
+                let data1 = await continent.save();
+            }
         }
     })
     job.start()
