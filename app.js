@@ -12,7 +12,7 @@ const CronJobs = require('./scoreBoard/cron_jobs')
 CronJobs.scoreSeries();
 CronJobs.storeContinents();
 CronJobs.storeCountry();
-
+CronJobs.storeLeagues();
 //CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
