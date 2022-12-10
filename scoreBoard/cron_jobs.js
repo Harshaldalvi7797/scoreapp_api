@@ -58,3 +58,30 @@ exports.storeContinents = async () => {
     })
     job.start()
 }
+
+exports.storeCountry = async () => {
+    const job = nodeCron.schedule("*/10 * * * * *", async () => {
+        console.log("country cron")
+        const checkCountry = await allModels.country.find()
+        if (checkCountry.length <= 0) {
+            console.log("country insert")
+            let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/countries/?api_token=Xy6lMx77QhdrWTq1BJo5NC0HIjU9MCO4AB8jqtlKS86bJskr1Ha5KW4iRWcW")
+            for (let index = 0; index < response.data.data.length; index++) {
+                const element = response.data.data[index];
+                let country = await allModels.country({
+                    resource: element.resource,
+                    countryId: element.id,
+                    continentId: element.continent_id,
+                    updatedAt_sport_monk: element.updated_at,
+                    image_path: element.image_path
+                })
+                let data1 = await country.save();
+                console.log("Data country store", data1)
+            }
+
+        }
+
+    })
+    job.start()
+
+}

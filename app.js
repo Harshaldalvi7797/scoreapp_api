@@ -11,6 +11,7 @@ apiAdminRoute.routes(app)
 const CronJobs = require('./scoreBoard/cron_jobs')
 CronJobs.scoreSeries();
 CronJobs.storeContinents();
+CronJobs.storeCountry();
 
 //CORS
 app.use((req, res, next) => {
