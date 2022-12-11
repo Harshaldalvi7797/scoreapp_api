@@ -71,7 +71,7 @@ exports.storeCountry = async () => {
                 let country = await allModels.country({
                     resource: element.resource,
                     countryId: element.id,
-                    countryName:element.name,
+                    countryName: element.name,
                     continentId: element.continent_id,
                     updatedAt_sport_monk: element.updated_at,
                     image_path: element.image_path
@@ -374,6 +374,192 @@ exports.storeSeasons = async () => {
                 await storeSeasons.save()
             }
         }
+
+
+    })
+    job.start()
+}
+
+exports.storeFixtures = async () => {
+    const job = nodeCron.schedule("*/10 * * * * *", async () => {
+        const testing = [
+            {
+                "resource": "fixtures",
+                "id": 3,
+                "league_id": 3,
+                "season_id": 6,
+                "stage_id": 1755,
+                "round": "2nd T20I",
+                "localteam_id": 40,
+                "visitorteam_id": 41,
+                "starting_at": "2018-10-12T16:00:00.000000Z",
+                "type": "T20I",
+                "live": false,
+                "status": "Finished",
+                "last_period": null,
+                "note": "South Africa won by 6 wickets (with 26 balls remaining)",
+                "venue_id": 96,
+                "toss_won_team_id": 41,
+                "winner_team_id": 40,
+                "draw_noresult": null,
+                "first_umpire_id": 36,
+                "second_umpire_id": 127,
+                "tv_umpire_id": 37,
+                "referee_id": 15,
+                "man_of_match_id": 80,
+                "man_of_series_id": null,
+                "total_overs_played": null,
+                "elected": "batting",
+                "super_over": false,
+                "follow_on": false,
+                "localteam_dl_data": {
+                    "score": null,
+                    "overs": null,
+                    "wickets_out": null
+                },
+                "visitorteam_dl_data": {
+                    "score": null,
+                    "overs": null,
+                    "wickets_out": null
+                },
+                "rpc_overs": null,
+                "rpc_target": null,
+                "weather_report": []
+            },
+            {
+                "resource": "fixtures",
+                "id": 4,
+                "league_id": 3,
+                "season_id": 6,
+                "stage_id": 1755,
+                "round": "3rd T20I",
+                "localteam_id": 40,
+                "visitorteam_id": 41,
+                "starting_at": "2018-10-14T12:30:00.000000Z",
+                "type": "T20I",
+                "live": false,
+                "status": "Aban.",
+                "last_period": null,
+                "note": "Match abandoned without a ball bowled",
+                "venue_id": 92,
+                "toss_won_team_id": null,
+                "winner_team_id": null,
+                "draw_noresult": "no-result",
+                "first_umpire_id": 37,
+                "second_umpire_id": 125,
+                "tv_umpire_id": 36,
+                "referee_id": 15,
+                "man_of_match_id": null,
+                "man_of_series_id": null,
+                "total_overs_played": null,
+                "elected": null,
+                "super_over": false,
+                "follow_on": false,
+                "localteam_dl_data": {
+                    "score": null,
+                    "overs": null,
+                    "wickets_out": null
+                },
+                "visitorteam_dl_data": {
+                    "score": null,
+                    "overs": null,
+                    "wickets_out": null
+                },
+                "rpc_overs": null,
+                "rpc_target": null,
+                "weather_report": []
+            },
+            {
+                "resource": "fixtures",
+                "id": 216,
+                "league_id": 3,
+                "season_id": 6,
+                "stage_id": 24,
+                "round": "1st T20I",
+                "localteam_id": 10,
+                "visitorteam_id": 43,
+                "starting_at": "2018-11-04T13:30:00.000000Z",
+                "type": "T20I",
+                "live": true,
+                "status": "Finished",
+                "last_period": null,
+                "note": "India won by 5 wickets (with 13 balls remaining)",
+                "venue_id": 64,
+                "toss_won_team_id": 10,
+                "winner_team_id": 10,
+                "draw_noresult": null,
+                "first_umpire_id": 57,
+                "second_umpire_id": 75,
+                "tv_umpire_id": 19,
+                "referee_id": 77,
+                "man_of_match_id": 56,
+                "man_of_series_id": null,
+                "total_overs_played": null,
+                "elected": "bowling",
+                "super_over": false,
+                "follow_on": false,
+                "localteam_dl_data": {
+                    "score": null,
+                    "overs": null,
+                    "wickets_out": null
+                },
+                "visitorteam_dl_data": {
+                    "score": null,
+                    "overs": null,
+                    "wickets_out": null
+                },
+                "rpc_overs": null,
+                "rpc_target": null,
+                "weather_report": []
+            },
+        ]
+        for (let index = 0; index < testing.length; index++) {
+            const element = testing[index];
+            const checkFixtureId = await allModels.fixtures.findOne({ fixtureId: element.id })
+            if (!checkFixtureId) {
+                const storeFixture = new allModels.fixtures({
+                    resource: element.resource,
+                    fixtureId: element.id,
+                    league_id: element.league_id,
+                    season_id: element.season_id,
+                    stage_id: element.stage_id,
+
+                    round: element.round,
+                    localteam_id: element.localteam_id,
+                    visitorteam_id: element.visitorteam_id,
+                    starting_at: element.starting_at,
+
+                    type: element.type,
+                    live: element.live,
+                    status: element.status,
+                    last_period: element.last_period,
+
+                    note: element.node,
+                    venue_id: element.venue_id,
+                    toss_won_team_id: element.toss_won_team_id,
+                    draw_noresult: element.draw_noresult,
+                    winner_team_id: element.winner_team_id,
+
+                    first_umpire_id: element.first_umpire_id,
+                    second_umpire_id: element.second_umpire_id,
+                    tv_umpire_id: element.tv_umpire_id,
+                    referee_id: element.referee_id,
+
+                    man_of_match_id: element.man_of_match_id,
+                    total_overs_played: element.total_overs_played,
+                    elected: element.elected,
+                    super_over: element.super_over,
+
+                    follow_on: element.follow_on,
+                    localteam_dl_data: element.localteam_dl_data,
+                    visitorteam_dl_data: element.visitorteam_dl_data,
+                    rpc_overs: element.rpc_overs,
+                    weather_report: element.weather_report
+                })
+                await storeFixture.save()
+            }
+        }
+
 
 
     })

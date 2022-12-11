@@ -17,6 +17,7 @@ let fixturesSchema = new mongoose.Schema({
     last_period: { type: String, default: null },
     note: { type: String, default: null },
     venue_id: { type: String, default: null },
+    winner_team_id: { type: String, default: null },
     toss_won_team_id: { type: String, default: null },
     draw_noresult: { type: String, default: null },
     first_umpire_id: { type: String, default: null },

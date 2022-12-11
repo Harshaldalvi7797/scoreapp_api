@@ -4,6 +4,7 @@ const ALL_MODELS = {
     country: require("./../models/country"),
     seasons: require("./../models/seasons"),
     leagues: require("./../models/leagues"),
+    fixtures: require("./../models/fixtures")
 }
 
 module.exports = ALL_MODELS;
