@@ -124,7 +124,6 @@ exports.storeLeagues = async () => {
         //     }
         // ]
         let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/leagues/?api_token=Xy6lMx77QhdrWTq1BJo5NC0HIjU9MCO4AB8jqtlKS86bJskr1Ha5KW4iRWcW")
-        console.log("league response", response.data.data)
         for (let index = 0; index < response.data.data.length; index++) {
             const element = response.data.data[index];
             const checkLeagueId = await allModels.leagues.findOne({ LeagueId: element.id })
@@ -133,17 +132,250 @@ exports.storeLeagues = async () => {
                     resource: element.resource,
                     LeagueId: element.id,
                     leagueName: element.name,
-                    season_id: element.resource,
-                    country_id: element.console,
-                    code: element.resource,
+                    season_id: element.season_id,
+                    country_id: element.country_id,
+                    code: element.code,
                     image_path: element.image_path,
                     type: element.type,
                     updatedAt_sport_monk: element.updated_at
                 })
                 await storeLeague.save()
-
             }
         }
     })
     job.start()
 }
+
+exports.storeSeasons = async () => {
+    const job = nodeCron.schedule("*/10 * * * * *", async () => {
+        const testing = [
+            {
+                "resource": "seasons",
+                "id": 6,
+                "league_id": 3,
+                "name": "2018",
+                "code": "2018",
+                "updated_at": "2018-10-22T20:51:18.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 24,
+                "league_id": 3,
+                "name": "2018/2019",
+                "code": "2018/2019",
+                "updated_at": "2018-10-21T10:21:50.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 44,
+                "league_id": 3,
+                "name": "2019",
+                "code": "2019",
+                "updated_at": "2018-10-29T07:49:31.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 185,
+                "league_id": 3,
+                "name": "2017/2018",
+                "code": "2017/2018",
+                "updated_at": "2018-12-13T10:06:02.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 309,
+                "league_id": 3,
+                "name": "2019/2020",
+                "code": "2019/2020",
+                "updated_at": "2019-05-24T09:30:46.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 312,
+                "league_id": 3,
+                "name": "2020",
+                "code": "2020",
+                "updated_at": "2019-06-08T19:52:38.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 498,
+                "league_id": 3,
+                "name": "2020/2021",
+                "code": "2020/2021",
+                "updated_at": "2020-05-31T11:32:28.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 507,
+                "league_id": 3,
+                "name": "2021",
+                "code": "2021",
+                "updated_at": "2020-05-31T12:24:22.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 782,
+                "league_id": 3,
+                "name": "2022",
+                "code": "2022",
+                "updated_at": "2021-05-19T13:24:05.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 1058,
+                "league_id": 3,
+                "name": "2023",
+                "code": "2023",
+                "updated_at": "2022-07-03T12:14:58.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 10,
+                "league_id": 5,
+                "name": "2018/2019",
+                "code": "2018/2019",
+                "updated_at": "2018-11-10T21:32:35.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 104,
+                "league_id": 5,
+                "name": "2017/2018",
+                "code": "2017/2018",
+                "updated_at": "2018-11-06T08:33:23.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 107,
+                "league_id": 5,
+                "name": "2016/2017",
+                "code": "2016/2017",
+                "updated_at": "2018-11-06T08:33:54.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 110,
+                "league_id": 5,
+                "name": "2015/2016",
+                "code": "2015/2016",
+                "updated_at": "2018-11-06T08:34:13.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 324,
+                "league_id": 5,
+                "name": "2019/2020",
+                "code": "2019/2020",
+                "updated_at": "2019-07-10T19:55:59.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 450,
+                "league_id": 5,
+                "name": "2014/2015",
+                "code": "2014/2015",
+                "updated_at": "2020-04-30T15:35:00.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 453,
+                "league_id": 5,
+                "name": "2013/2014",
+                "code": "2013/2014",
+                "updated_at": "2020-05-01T13:18:51.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 525,
+                "league_id": 5,
+                "name": "2020/2021",
+                "code": "2020/2021",
+                "updated_at": "2020-07-15T09:34:23.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 830,
+                "league_id": 5,
+                "name": "2021/2022",
+                "code": "2021/2022",
+                "updated_at": "2021-07-14T19:49:33.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 1079,
+                "league_id": 5,
+                "name": "2022/2023",
+                "code": "2022/2023",
+                "updated_at": "2022-07-08T20:15:09.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 15,
+                "league_id": 10,
+                "name": "2018/2019",
+                "code": "2018/2019",
+                "updated_at": "2018-12-13T19:49:38.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 188,
+                "league_id": 10,
+                "name": "2017/2018",
+                "code": "2017/2018",
+                "updated_at": "2018-12-13T19:49:59.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 191,
+                "league_id": 10,
+                "name": "2016/2017",
+                "code": "2016/2017",
+                "updated_at": "2018-12-13T19:50:16.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 648,
+                "league_id": 10,
+                "name": "2021",
+                "code": "2021",
+                "updated_at": "2021-02-10T18:36:12.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 986,
+                "league_id": 10,
+                "name": "2021/2022",
+                "code": "2021/2022",
+                "updated_at": "2022-02-02T09:41:04.000000Z"
+            },
+            {
+                "resource": "seasons",
+                "id": 1145,
+                "league_id": 10,
+                "name": "2022/2023",
+                "code": "2022/2023",
+                "updated_at": "2022-09-18T15:09:59.000000Z"
+            }
+        ]
+        for (let index = 0; index < testing.length; index++) {
+            const element = testing[index];
+            const checkSeasonId = await allModels.seasons.findOne({ seasonId: element.id })
+            if (!checkSeasonId) {
+                const storeSeasons = new allModels.seasons({
+                    resource: element.resource,
+                    seasonId: element.id,
+                    seasonName: element.name,
+                    league_id: element.league_id,
+                    code: element.code,
+                    updatedAt_sport_monk: element.updated_at
+                })
+                await storeSeasons.save()
+            }
+        }
+
+
+    })
+    job.start()
+}
+

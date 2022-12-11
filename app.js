@@ -13,6 +13,7 @@ CronJobs.scoreSeries();
 CronJobs.storeContinents();
 CronJobs.storeCountry();
 CronJobs.storeLeagues();
+CronJobs.storeSeasons();
 //CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

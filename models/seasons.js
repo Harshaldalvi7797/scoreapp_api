@@ -6,7 +6,6 @@ let seasonsSchema = new mongoose.Schema({
     seasonId: { type: String, default: null },
     seasonName: { type: String, default: null },
     league_id: { type: String, default: null },
-    country_id: { type: String, default: null },
     code: { type: String, default: null },
     updatedAt_sport_monk: { type: String, default: null }
 }, { timestamps: true });
