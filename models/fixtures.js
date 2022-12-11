@@ -31,11 +31,11 @@ let fixturesSchema = new mongoose.Schema({
     super_over: { type: Boolean, default: null },
     follow_on: { type: Boolean, default: null },
 
-    localteam_dl_data: { type: String, default: null },
-    visitorteam_dl_data: { type: String, default: null },
+    localteam_dl_data: { type: Object, default: null },
+    visitorteam_dl_data: { type: Object, default: null },
 
-    rpc_overs: { type: Object, default: null },
-    rpc_target: { type: Object, default: null },
+    rpc_overs: { type: String, default: null },
+    rpc_target: { type: String, default: null },
 
     weather_report: { type: Array, default: null },
 

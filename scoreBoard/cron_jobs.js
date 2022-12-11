@@ -425,98 +425,16 @@ exports.storeFixtures = async () => {
                 "rpc_overs": null,
                 "rpc_target": null,
                 "weather_report": []
-            },
-            {
-                "resource": "fixtures",
-                "id": 4,
-                "league_id": 3,
-                "season_id": 6,
-                "stage_id": 1755,
-                "round": "3rd T20I",
-                "localteam_id": 40,
-                "visitorteam_id": 41,
-                "starting_at": "2018-10-14T12:30:00.000000Z",
-                "type": "T20I",
-                "live": false,
-                "status": "Aban.",
-                "last_period": null,
-                "note": "Match abandoned without a ball bowled",
-                "venue_id": 92,
-                "toss_won_team_id": null,
-                "winner_team_id": null,
-                "draw_noresult": "no-result",
-                "first_umpire_id": 37,
-                "second_umpire_id": 125,
-                "tv_umpire_id": 36,
-                "referee_id": 15,
-                "man_of_match_id": null,
-                "man_of_series_id": null,
-                "total_overs_played": null,
-                "elected": null,
-                "super_over": false,
-                "follow_on": false,
-                "localteam_dl_data": {
-                    "score": null,
-                    "overs": null,
-                    "wickets_out": null
-                },
-                "visitorteam_dl_data": {
-                    "score": null,
-                    "overs": null,
-                    "wickets_out": null
-                },
-                "rpc_overs": null,
-                "rpc_target": null,
-                "weather_report": []
-            },
-            {
-                "resource": "fixtures",
-                "id": 216,
-                "league_id": 3,
-                "season_id": 6,
-                "stage_id": 24,
-                "round": "1st T20I",
-                "localteam_id": 10,
-                "visitorteam_id": 43,
-                "starting_at": "2018-11-04T13:30:00.000000Z",
-                "type": "T20I",
-                "live": true,
-                "status": "Finished",
-                "last_period": null,
-                "note": "India won by 5 wickets (with 13 balls remaining)",
-                "venue_id": 64,
-                "toss_won_team_id": 10,
-                "winner_team_id": 10,
-                "draw_noresult": null,
-                "first_umpire_id": 57,
-                "second_umpire_id": 75,
-                "tv_umpire_id": 19,
-                "referee_id": 77,
-                "man_of_match_id": 56,
-                "man_of_series_id": null,
-                "total_overs_played": null,
-                "elected": "bowling",
-                "super_over": false,
-                "follow_on": false,
-                "localteam_dl_data": {
-                    "score": null,
-                    "overs": null,
-                    "wickets_out": null
-                },
-                "visitorteam_dl_data": {
-                    "score": null,
-                    "overs": null,
-                    "wickets_out": null
-                },
-                "rpc_overs": null,
-                "rpc_target": null,
-                "weather_report": []
-            },
+            }
         ]
-        for (let index = 0; index < testing.length; index++) {
-            const element = testing[index];
+        let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/fixtures/?api_token=Xy6lMx77QhdrWTq1BJo5NC0HIjU9MCO4AB8jqtlKS86bJskr1Ha5KW4iRWcW&filter[league_id]=3")
+        for (let index = 0; index < response.data.data.length; index++) {
+            const element = response.data.data[index];
+            console.log("element", element)
             const checkFixtureId = await allModels.fixtures.findOne({ fixtureId: element.id })
+            console.log("checkFixtureId", checkFixtureId)
             if (!checkFixtureId) {
+                console.log("here fix..")
                 const storeFixture = new allModels.fixtures({
                     resource: element.resource,
                     fixtureId: element.id,
@@ -544,16 +462,16 @@ exports.storeFixtures = async () => {
                     second_umpire_id: element.second_umpire_id,
                     tv_umpire_id: element.tv_umpire_id,
                     referee_id: element.referee_id,
-
+                    man_of_series_id: element.man_of_series_id,
                     man_of_match_id: element.man_of_match_id,
                     total_overs_played: element.total_overs_played,
                     elected: element.elected,
                     super_over: element.super_over,
-
                     follow_on: element.follow_on,
                     localteam_dl_data: element.localteam_dl_data,
                     visitorteam_dl_data: element.visitorteam_dl_data,
                     rpc_overs: element.rpc_overs,
+                    rpc_target: element.rpc_target,
                     weather_report: element.weather_report
                 })
                 await storeFixture.save()
