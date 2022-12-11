@@ -71,6 +71,7 @@ exports.storeCountry = async () => {
                 let country = await allModels.country({
                     resource: element.resource,
                     countryId: element.id,
+                    countryName:element.name,
                     continentId: element.continent_id,
                     updatedAt_sport_monk: element.updated_at,
                     image_path: element.image_path
