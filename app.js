@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 
 
-mongoose.connect("mongodb://localhost/ecomm", {
+mongoose.connect("mongodb+srv://Tilltoss:23bc07de@cluster0.npoblfd.mongodb.net/cricket", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

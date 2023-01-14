@@ -430,9 +430,9 @@ exports.storeFixtures = async () => {
         let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/fixtures/?api_token=Xy6lMx77QhdrWTq1BJo5NC0HIjU9MCO4AB8jqtlKS86bJskr1Ha5KW4iRWcW&filter[league_id]=3")
         for (let index = 0; index < response.data.data.length; index++) {
             const element = response.data.data[index];
-            console.log("element", element)
+            //console.log("element", element)
             const checkFixtureId = await allModels.fixtures.findOne({ fixtureId: element.id })
-            console.log("checkFixtureId", checkFixtureId)
+          //  console.log("checkFixtureId", checkFixtureId)
             if (!checkFixtureId) {
                 console.log("here fix..")
                 const storeFixture = new allModels.fixtures({
