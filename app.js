@@ -36,8 +36,8 @@ mongoose.connect("mongodb+srv://Tilltoss:23bc07de@cluster0.npoblfd.mongodb.net/c
   .catch((error) => console.log(`something went wrong ${error.message}`));
 const PORT = process.env.PORT
 //port connection
-let server = app.listen(PORT, () => {
-  console.log(`connected to port ${process.env.PORT}`)
+let server = app.listen(8080, () => {
+  console.log(`connected to port ${8080}`)
 });
 
 const socket = require('./utilities/socketConnection');
