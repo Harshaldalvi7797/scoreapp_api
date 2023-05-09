@@ -4,7 +4,10 @@ const ALL_MODELS = {
     country: require("./../models/country"),
     seasons: require("./../models/seasons"),
     leagues: require("./../models/leagues"),
-    fixtures: require("./../models/fixtures")
+    fixtures: require("./../models/fixtures"),
+    newFixtures: require("./../models/newFixtures"),
+    team: require("./../models/teams"),
+    scoreCard: require("./../models/liveScoreCard")
 }
 
 module.exports = ALL_MODELS;

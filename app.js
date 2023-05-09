@@ -12,9 +12,11 @@ const CronJobs = require('./scoreBoard/cron_jobs')
 CronJobs.scoreSeries();
 CronJobs.storeContinents();
 CronJobs.storeCountry();
-CronJobs.storeLeagues();
-CronJobs.storeSeasons();
-CronJobs.storeFixtures();
+// CronJobs.storeLeagues();
+// CronJobs.storeSeasons();
+// CronJobs.storeFixtures();
+//CronJobs.storeTeam();
+CronJobs.scoreCardFixtures();
 //CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,7 +34,7 @@ mongoose.connect("mongodb+srv://Tilltoss:23bc07de@cluster0.npoblfd.mongodb.net/c
 })
   .then(() => console.log(`connected  to DB successfully`))
   .catch((error) => console.log(`something went wrong ${error.message}`));
-const PORT = 4000
+const PORT = 3000
 //port connection
 let server = app.listen(PORT, () => {
   console.log(`connected to port ${process.env.PORT}`)
