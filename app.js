@@ -16,7 +16,7 @@ CronJobs.storeCountry();
 // CronJobs.storeSeasons();
 // CronJobs.storeFixtures();
 //CronJobs.storeTeam();
-CronJobs.scoreCardFixtures();
+// CronJobs.scoreCardFixtures();
 //CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,10 +34,10 @@ mongoose.connect("mongodb+srv://Tilltoss:23bc07de@cluster0.npoblfd.mongodb.net/c
 })
   .then(() => console.log(`connected  to DB successfully`))
   .catch((error) => console.log(`something went wrong ${error.message}`));
-const PORT = 3000
+const PORT = process.env.PORT
 //port connection
-let server = app.listen(PORT, () => {
-  console.log(`connected to port ${process.env.PORT}`)
+let server = app.listen(8080, () => {
+  console.log(`connected to port ${8080}`)
 });
 
 const socket = require('./utilities/socketConnection');

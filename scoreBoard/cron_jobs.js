@@ -533,44 +533,36 @@ exports.BallByBall = async () => {
 exports.scoreCardFixtures = async () => {
     const job = nodeCron.schedule("*/10 * * * * *", async () => {
         try {
+            // get fixtureId from allin play api 
+
             const fixtureId = "47033"
             let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${fixtureId}?include=runs&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
             console.log("response", response.data.data.runs)
             const checkFixtureId = await allModels.scoreCard.findOne({ fixtureId: response.data.data.id })
-            if(checkFixtureId)
-            {
+            if (checkFixtureId) {
                 console.log("update")
                 //update
-                checkFixtureId.runs=response.data.data.runs
+                checkFixtureId.runs = response.data.data.runs
                 await checkFixtureId.save()
 
 
             }
-        else{
-            console.log("create")
+            else {
+                console.log("create")
 
-            //create
-            const storeFixtureScore = new allModels.scoreCard({
-                resource:response.data.data.resource,
-                fixtureId:response.data.data.id,
-                runs:response.data.data.runs,
-            })
-            await storeFixtureScore.save()
-        }
-
-
+                //create
+                const storeFixtureScore = new allModels.scoreCard({
+                    resource: response.data.data.resource,
+                    fixtureId: response.data.data.id,
+                    runs: response.data.data.runs,
+                })
+                await storeFixtureScore.save()
+            }
 
 
-            //        for (let index = 0; index < response.data.data.fixtures.length; index++) {
-            //    const element = response.data.runs[index];
-            //    console.log("length ipl matches",element)
-            // //   //  console.log("element", element)
-            // //   const checkFixtureId = await allModels.newFixtures.findOne({ fixtureId: element.id })
-            // // // console.log("checkFixtureId", checkFixtureId)
-            // //  if (!checkFixtureId) {
 
-            // //     }
-            // }
+
+
         }
         catch (error) {
             console.log("error", error)
