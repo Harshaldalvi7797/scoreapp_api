@@ -133,7 +133,7 @@ exports.fixturesScore= async (req,res)=>
 
 {
     console.log("welcome")
-      let fixture = await allModels.scoreCard.find({ "fixtureId": "47033" })
+      let fixture = await allModels.scoreCard.find({ "fixtureId": req.query.fixtureId })
 
     return res.send(fixture)
 }

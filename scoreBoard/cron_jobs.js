@@ -534,30 +534,59 @@ exports.scoreCardFixtures = async () => {
     const job = nodeCron.schedule("*/10 * * * * *", async () => {
         try {
             // get fixtureId from allin play api 
+            let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/livescores?api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
+            // console.log("response",response.data.data)
 
-            const fixtureId = "47033"
-            let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${fixtureId}?include=runs&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
-            console.log("response", response.data.data.runs)
-            const checkFixtureId = await allModels.scoreCard.findOne({ fixtureId: response.data.data.id })
-            if (checkFixtureId) {
-                console.log("update")
-                //update
-                checkFixtureId.runs = response.data.data.runs
-                await checkFixtureId.save()
+            for (let index = 0; index < response.data.data.length; index++) {
+                const element = response.data.data[index];
+                console.log("fixtureId", element.id)
+                let responseScore = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${element.id}?include=runs&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
+                console.log("response", responseScore.data.data.runs)
+                const checkFixtureId = await allModels.scoreCard.findOne({ fixtureId: responseScore.data.data.id })
+                if (checkFixtureId) {
+                    console.log("update")
+                    //update
+                    checkFixtureId.runs = responseScore.data.data.runs
+                    await checkFixtureId.save()
 
 
+                }
+                else {
+                    console.log("create")
+
+                    //create
+                    const storeFixtureScore = new allModels.scoreCard({
+                        resource: responseScore.data.data.resource,
+                        fixtureId: responseScore.data.data.id,
+                        runs: responseScore.data.data.runs,
+                    })
+                    await storeFixtureScore.save()
+                }
             }
-            else {
-                console.log("create")
 
-                //create
-                const storeFixtureScore = new allModels.scoreCard({
-                    resource: response.data.data.resource,
-                    fixtureId: response.data.data.id,
-                    runs: response.data.data.runs,
-                })
-                await storeFixtureScore.save()
-            }
+            // const fixtureId = "47033"
+            // let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${fixtureId}?include=runs&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
+            // console.log("response", response.data.data.runs)
+            // const checkFixtureId = await allModels.scoreCard.findOne({ fixtureId: response.data.data.id })
+            // if (checkFixtureId) {
+            //     console.log("update")
+            //     //update
+            //     checkFixtureId.runs = response.data.data.runs
+            //     await checkFixtureId.save()
+
+
+            // }
+            // else {
+            //     console.log("create")
+
+            //     //create
+            //     const storeFixtureScore = new allModels.scoreCard({
+            //         resource: response.data.data.resource,
+            //         fixtureId: response.data.data.id,
+            //         runs: response.data.data.runs,
+            //     })
+            //     await storeFixtureScore.save()
+            // }
 
 
 
