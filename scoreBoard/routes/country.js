@@ -13,6 +13,6 @@ router.get("/fixtures", getFixtures)
 
 router.get('/team',addTeam)
 
-router.get("/fixture/score",fixturesScore)
+// router.get("/fixture/score",fixturesScore)
 
 module.exports = router;

@@ -2,7 +2,7 @@ let express = require("express");
 let router = express.Router();
 
 
-let {upcomingMatches } = require("../controllers/matchesScore");
+let {upcomingMatches,fixturesScoreLive } = require("../controllers/matchesScore");
 
 
 router.get('/startInterval', function() {
@@ -11,6 +11,6 @@ router.get('/startInterval', function() {
     }, 1000);
 });
 
-router.get("/matches", upcomingMatches)
+router.get("/fixture/score", fixturesScoreLive)
 
 module.exports = router;

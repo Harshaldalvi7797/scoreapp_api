@@ -1,5 +1,6 @@
 
 const axios = require("axios")
+let allModels = require("../../utilities/allModels");
 
 exports.upcomingMatches = async (req, res) => {
 
@@ -31,4 +32,13 @@ exports.upcomingMatches = async (req, res) => {
 
     // console.log("hiii")
 
+}
+
+exports.fixturesScoreLive= async (req,res)=>
+
+{
+    console.log("welcome")
+      let fixture = await allModels.scoreCard.find({ "createdDate": req.query.search })
+
+    return res.send(fixture)
 }

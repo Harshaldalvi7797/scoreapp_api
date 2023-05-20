@@ -21,7 +21,8 @@ exports.getFixturesFromDate = async (req, res) => {
             visitorteam_id: element.visitorteam_id,
             visitorteamFlag: teamV.image_path,
             visitorteamName: teamV.name,
-            starting_at: new Date(element.starting_at).toLocaleString()
+            starting_at: (element.starting_at),
+            startingTime: element.starting_at
         }
         response.push(fixtureResponse)
     }

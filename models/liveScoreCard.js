@@ -1,5 +1,4 @@
 let mongoose = require("mongoose");
-
 let liveScoreSchema = new mongoose.Schema({
 
     resource: { type: String, default: null },
@@ -9,22 +8,23 @@ let liveScoreSchema = new mongoose.Schema({
     runs:[],
     startingAt:Number,
     createdDate: Number,
-    updatedDate: Number
+    updatedDate: Number,
+    note: { type: String, default: null },
 
 }, { timestamps: true });
 
-// liveScoreSchema.pre('save', function (next) {
-//     if (this.createdAt) {
-//         this.createdDate = setDateTime(this.createdAt)
-//     }
-//     if (this.updatedAt) {
-//         this.updatedDate = setDateTime(this.updatedAt)
-//     }
-//     if (this.starting_at) {
-//         this.startingAt = setDateTime(this.starting_at)
-//     }
-//     next()
-// });
+liveScoreSchema.pre('save', function (next) {
+    if (this.createdAt) {
+        this.createdDate = setDateTime(this.createdAt)
+    }
+    if (this.updatedAt) {
+        this.updatedDate = setDateTime(this.updatedAt)
+    }
+    if (this.starting_at) {
+        this.startingAt = setDateTime(this.starting_at)
+    }
+    next()
+});
 
 const setDateTime = (stringdate) => {
     let date = new Date(stringdate.toString());

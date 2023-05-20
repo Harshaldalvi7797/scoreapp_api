@@ -559,6 +559,7 @@ exports.scoreCardFixtures = async () => {
                         resource: responseScore.data.data.resource,
                         fixtureId: responseScore.data.data.id,
                         runs: responseScore.data.data.runs,
+                        note:responseScore.data.data.note,
                     })
                     await storeFixtureScore.save()
                 }
