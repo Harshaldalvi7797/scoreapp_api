@@ -17,6 +17,7 @@ CronJobs.storeCountry();
 // CronJobs.storeFixtures();
 //CronJobs.storeTeam();
  CronJobs.scoreCardFixtures();
+ CronJobs.allplayers();
 //CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

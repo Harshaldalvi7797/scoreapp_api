@@ -483,7 +483,7 @@ exports.storeFixtures = async () => {
             }
         }
         catch (error) {
-            console.log("error", error)
+            // console.log("error", error)
 
         }
 
@@ -539,7 +539,7 @@ exports.scoreCardFixtures = async () => {
 
             for (let index = 0; index < response.data.data.length; index++) {
                 const element = response.data.data[index];
-                console.log("fixtureId", element.id)
+                // console.log("fixtureId", element.id)
                 let responseScore = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${element.id}?include=runs&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
                 console.log("response", responseScore.data.data.runs)
                 const checkFixtureId = await allModels.scoreCard.findOne({ fixtureId: responseScore.data.data.id })
@@ -559,7 +559,7 @@ exports.scoreCardFixtures = async () => {
                         resource: responseScore.data.data.resource,
                         fixtureId: responseScore.data.data.id,
                         runs: responseScore.data.data.runs,
-                        note:responseScore.data.data.note,
+                        note: responseScore.data.data.note,
                     })
                     await storeFixtureScore.save()
                 }
@@ -595,12 +595,55 @@ exports.scoreCardFixtures = async () => {
 
         }
         catch (error) {
-            console.log("error", error)
+            // console.log("error", error)
 
         }
 
     })
     job.start()
 }
+
+exports.allplayers = async () => {
+    const job = nodeCron.schedule("*/40 * * * * *", async () => {
+        try {
+            console.log("hii players")
+            // get fixtureId from allin play api 
+            let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/players?api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
+            // console.log("response", response.data.data)
+
+            for (let index = 0; index < response.data.data.length; index++) {
+                const element = response.data.data[index];
+                // console.log("Element players", element)
+                const checkPlayerId = await allModels.players.findOne({ playerId: element.id })
+                if (!checkPlayerId) {
+                     console.log("here fix..")
+                    const storePlayer = new allModels.players({
+                        playerId: element.id,
+                        resource: element.resource,
+                        resource: element.resource,
+                        firstname: element.firstname,
+                        lastname: element.lastname,
+                        fullname: element.fullname,
+                        dateofbirth: element.dateofbirth,
+                        gender: element.gender,
+                        battingstyle: element.battingstyle,
+                        bowlingstyle: element.bowlingstyle,
+                        position: element.position,
+                    })
+                    await storePlayer.save()
+                }
+            }
+
+
+        }
+        catch (error) {
+            console.log("error", error)
+        }
+
+    })
+    job.start()
+}
+
+
 
 
