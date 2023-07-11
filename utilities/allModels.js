@@ -7,7 +7,8 @@ const ALL_MODELS = {
     newFixtures: require("./../models/newFixtures"),
     team: require("./../models/teams"),
     scoreCard: require("./../models/liveScoreCard"),
-    players: require("./../models/players")
+    players: require("./../models/players"),
+    venues: require("./../models/venues")
 }
 
 module.exports = ALL_MODELS;

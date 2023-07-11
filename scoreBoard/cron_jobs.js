@@ -541,10 +541,10 @@ exports.scoreCardFixtures = async () => {
                 const element = response.data.data[index];
                 // console.log("fixtureId", element.id)
                 let responseScore = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${element.id}?include=runs&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
-                console.log("response", responseScore.data.data.runs)
+                //console.log("response", responseScore.data.data.runs)
                 const checkFixtureId = await allModels.scoreCard.findOne({ fixtureId: responseScore.data.data.id })
                 if (checkFixtureId) {
-                    console.log("update")
+                    //console.log("update")
                     //update
                     checkFixtureId.runs = responseScore.data.data.runs
                     await checkFixtureId.save()
