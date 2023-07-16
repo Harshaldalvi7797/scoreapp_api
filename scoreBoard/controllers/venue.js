@@ -1,67 +1,27 @@
+const axios = require("axios");
 let allModels = require("../../utilities/allModels");
 
 exports.getVenueById = async (req, res) => {
-    console.log(typeof req.query.venueId)
     let venue = await allModels.venues.find({ venueId: req.query.venueId })
-    const response = []
-    if (venue){
-        response.push(venue)
-    }
-    return res.send({ count: response.length, data: response })
-}
-
-exports.addVenue = async (req, res) => {
-    const data = [
-        {
-            "resource": "venues",
-            "id": 1,
-            "country_id": 98,
-            "name": "Adelaide Oval",
-            "city": "Adelaide",
-            "image_path": "https://cdn.sportmonks.com/images/cricket/venues/1/1.png",
-            "capacity": 53583,
-            "floodlight": true,
-            "updated_at": "2018-11-14T07:43:05.000000Z"
-        },
-        {
-            "resource": "venues",
-            "id": 2,
-            "country_id": 98,
-            "name": "W.A.C.A. Ground",
-            "city": "East Perth,  Perth, Western Australia",
-            "image_path": "https://cdn.sportmonks.com/images/cricket/venues/2/2.png",
-            "capacity": 18000,
-            "floodlight": true,
-            "updated_at": "2018-11-14T17:47:15.000000Z"
-        },
-        {
-            "resource": "venues",
-            "id": 3,
-            "country_id": 98,
-            "name": "Tony Ireland Stadium, Townsville",
-            "city": "Thuringowa,  Townsville, Queensland",
-            "image_path": "https://cdn.sportmonks.com/images/cricket/venues/3/3.png",
-            "capacity": 10000,
-            "floodlight": false,
-            "updated_at": "2018-11-14T17:43:45.000000Z"
-        },
-    ]
-
-    for (let index = 0; index < data.length; index++) {
-        const element = data[index];
-
+    const venueDetails = []
+    if (venue.length){
+        venueDetails.push(venue)
+    }else{
+        let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/venues/${req.query.venueId}?api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
+        let data = response.data.data
         const storeVenue = await allModels.venues({
-            venueId: element.id,
-            name: element.name,
-            city: element.city,
-            image_path: element.image_path,
-            country_id: element.country_id,
-            floodlight: element.floodlight,
-            capacity: element.capacity
+            venueId: data.id,
+            name: data.name,
+            city: data.city,
+            image_path: data.image_path,
+            country_id: data.country_id,
+            floodlight: data.floodlight,
+            capacity: data.capacity
         })
         let sv = await storeVenue.save()
+        return res.send({ message: "Data added" })
     }
-    //let st = await storeTeam.save()
-    return res.send({ message: "data store" })
-
+    return res.send({ count: venueDetails.length, data: venueDetails })
 }
+
+

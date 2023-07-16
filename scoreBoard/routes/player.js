@@ -2,7 +2,7 @@ let express = require("express");
 let router = express.Router();
 
 
-let {getVenueById} = require("../controllers/venue");
+let {getPlayerById} = require("../controllers/player");
 
 
 
@@ -10,6 +10,6 @@ let {getVenueById} = require("../controllers/venue");
 
 
 
-router.get('/getVenueById',getVenueById)
+router.get('/getPlayerById',getPlayerById)
 
 module.exports = router;
