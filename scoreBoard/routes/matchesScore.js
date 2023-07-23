@@ -2,7 +2,7 @@ let express = require("express");
 let router = express.Router();
 
 
-let {upcomingMatches,fixturesScoreLive } = require("../controllers/matchesScore");
+let {fixturesScoreLive } = require("../controllers/matchesScore");
 
 
 router.get('/startInterval', function() {

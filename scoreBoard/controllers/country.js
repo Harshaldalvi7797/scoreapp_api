@@ -138,11 +138,3 @@ exports.fixturesScore= async (req,res)=>
     return res.send(fixture)
 }
 
-// exports.fetchFixtureLiveScore= async (req,res)=>
-// {
-//     console.log("req.body.fixtureId ",req.query.id )
-//     let fixture = await allModels.scoreCard.find({ "fixtureId": "47033" })
-
-//     return res.send(fixture)
-
-// }

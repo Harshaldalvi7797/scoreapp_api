@@ -29,3 +29,4 @@ exports.getFixturesFromDate = async (req, res) => {
 
     return res.send({ count: response.length, data: response })
 }
+

@@ -9,15 +9,15 @@ let apiAdminRoute = require("./app-admin")
 apiAdminRoute.routes(app)
 
 const CronJobs = require('./scoreBoard/cron_jobs')
-CronJobs.scoreSeries();
-CronJobs.storeContinents();
-CronJobs.storeCountry();
+// CronJobs.scoreSeries();
+// CronJobs.storeContinents();
+// CronJobs.storeCountry();
 // CronJobs.storeLeagues();
 // CronJobs.storeSeasons();
-// CronJobs.storeFixtures();
+//CronJobs.storeFixtures();
 //CronJobs.storeTeam();
- CronJobs.scoreCardFixtures();
- CronJobs.allplayers();
+CronJobs.scoreCardFixtures();
+//  CronJobs.allplayers();
 //CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

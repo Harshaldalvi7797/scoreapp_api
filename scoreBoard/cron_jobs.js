@@ -382,7 +382,7 @@ exports.storeSeasons = async () => {
 
 exports.storeFixtures = async () => {
     const job = nodeCron.schedule("*/10 * * * * *", async () => {
-        console.log("hi")
+        console.log("hi new fixtures")
         const testing = [
             {
                 "resource": "fixtures",
@@ -429,8 +429,8 @@ exports.storeFixtures = async () => {
             }
         ]
         try {
-            let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/seasons/1223?include=fixtures&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA")
-            //   console.log("response", response)
+            let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/seasons/1058?include=fixtures&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA")
+              console.log("response", response)
             for (let index = 0; index < response.data.data.fixtures.length; index++) {
                 const element = response.data.data.fixtures[index];
                 console.log("length ipl matches", response.data.data.fixtures.length)
@@ -493,13 +493,13 @@ exports.storeFixtures = async () => {
 
 exports.storeTeam = async () => {
     const job = nodeCron.schedule("*/10 * * * * *", async () => {
-        console.log("hi")
+       // console.log("hi")
         try {
             let response = await axios.get("https://cricket.sportmonks.com/api/v2.0/teams?api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA")
-            // console.log("response", response)
+            //  console.log("response", response)
             for (let index = 0; index < response.data.data.length; index++) {
                 const element = response.data.data[index];
-                console.log("teams", response.data.data.length)
+              //  console.log("teams", response.data.data.length)
                 //  console.log("element", element)
                 const checkFixtureId = await allModels.team.findOne({ teamId: element.id })
                 // console.log("checkFixtureId", checkFixtureId)
@@ -552,7 +552,7 @@ exports.scoreCardFixtures = async () => {
 
                 }
                 else {
-                    console.log("create")
+                    //  console.log("create")
 
                     //create
                     const storeFixtureScore = new allModels.scoreCard({
@@ -606,7 +606,7 @@ exports.scoreCardFixtures = async () => {
 exports.allplayers = async () => {
     const job = nodeCron.schedule("*/40 * * * * *", async () => {
         try {
-            console.log("hii players")
+            // console.log("hii players")
             // get fixtureId from allin play api 
             let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/players?api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
             // console.log("response", response.data.data)
@@ -616,7 +616,7 @@ exports.allplayers = async () => {
                 // console.log("Element players", element)
                 const checkPlayerId = await allModels.players.findOne({ playerId: element.id })
                 if (!checkPlayerId) {
-                     console.log("here fix..")
+                    //  console.log("here fix..")
                     const storePlayer = new allModels.players({
                         playerId: element.id,
                         resource: element.resource,
@@ -637,7 +637,7 @@ exports.allplayers = async () => {
 
         }
         catch (error) {
-            console.log("error", error)
+            // console.log("error", error)
         }
 
     })
