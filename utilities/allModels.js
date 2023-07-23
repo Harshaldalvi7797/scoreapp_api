@@ -5,6 +5,7 @@ const ALL_MODELS = {
     seasons: require("./../models/seasons"),
     leagues: require("./../models/leagues"),
     newFixtures: require("./../models/newFixtures"),
+    fixtureInfo: require("./../models/fixtureInfo"),
     team: require("./../models/teams"),
     scoreCard: require("./../models/liveScoreCard"),
     players: require("./../models/players"),
