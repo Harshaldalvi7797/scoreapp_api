@@ -1,35 +1,47 @@
 let allModels = require("../../utilities/allModels");
 const axios = require("axios");
 const { validationResult } = require('express-validator');
+const moment = require('moment');
 
 exports.getFixturesFromDate = async (req, res) => {
-    let fixture = await allModels.newFixtures.find({ startingAt: req.query.starting_at })
-    const response = []
-    for (let index = 0; index < fixture.length; index++) {
-        const element = fixture[index];
-        let leagues = await allModels.leagues.findOne({ LeagueId: element.league_id })
-        let teamV = await allModels.team.findOne({ teamId: element.visitorteam_id })
-        let teamL = await allModels.team.findOne({ teamId: element.localteam_id })
-        const fixtureResponse =
-        {
-            fixtureId: element.fixtureId,
-            league_id: element.league_id,
-            season_id: element.season_id,
-            leagueName: leagues.leagueName,
-            round: element.round,
-            localteam_id: element.localteam_id,
-            localteamName: teamL.name,
-            localteamFlag: teamL.image_path,
-            visitorteam_id: element.visitorteam_id,
-            visitorteamFlag: teamV.image_path,
-            visitorteamName: teamV.name,
-            starting_at: (element.starting_at),
-            startingTime: element.starting_at
-        }
-        response.push(fixtureResponse)
-    }
+    try {
+        let fixture = await allModels.newFixtures.find({ startingAt: req.query.starting_at })
+        const response = []
+        for (let index = 0; index < fixture.length; index++) {
+            const element = fixture[index];
+            let leagues = await allModels.leagues.findOne({ LeagueId: element.league_id })
+            let teamV = await allModels.team.findOne({ teamId: element.visitorteam_id })
+            let teamL = await allModels.team.findOne({ teamId: element.localteam_id })
 
-    return res.send({ count: response.length, data: response })
+            const parsedDate = moment.utc(req.query.starting_at);
+            // Convert to Indian Standard Time (IST) by adding 5 hours and 30 minutes
+            const istDate = parsedDate.utcOffset("+05:30");
+            // Format the IST date as "month date year time"
+            const formattedISTDate = istDate.format("MMMM D YYYY h:mm A");
+
+            const fixtureResponse =
+            {
+                fixtureId: element.fixtureId,
+                league_id: element.league_id,
+                season_id: element.season_id,
+                leagueName: leagues.leagueName,
+                round: element.round,
+                localteam_id: element.localteam_id,
+                localteamName: teamL.name,
+                localteamFlag: teamL.image_path,
+                visitorteam_id: element.visitorteam_id,
+                visitorteamFlag: teamV.image_path,
+                visitorteamName: teamV.name,
+                starting_at: (element.starting_at),
+                startingTime: formattedISTDate
+            }
+            response.push(fixtureResponse)
+         }
+
+        return res.send({ count: response.length, data: response })
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 exports.fixtureInfo = async (req, res) => {
