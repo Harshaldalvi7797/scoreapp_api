@@ -52,9 +52,15 @@ exports.fixtureInfo = async (req, res) => {
         else {
             let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${req.query.fixtureId}?include=localteam%2Cvisitorteam%2Cvenue%2Cstage%2Cfirstumpire%2Csecondumpire%2Ctosswon%2Creferee%2Cleague&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
             // console.log(response.data)
+            const dateComponent = moment.utc(response.data.data.starting_at,).format('YYYY-MM-DD');
+            const timeComponent = moment.utc(response.data.data.starting_at,).tz('Asia/Kolkata').format('h:mm:ss.SS A');
             const storeFixtureInfo = new allModels.fixtureInfo({
                 fixtureId: response.data.data.id,
+                elected:response.data.data.elected,
                 starting_at: response.data.data.starting_at,
+                round: response.data.data.round,
+                matchDate:dateComponent,
+                matchISTTime: timeComponent,
                 league: response.data.data.league,
                 stage: response.data.data.stage,
                 localteam: response.data.data.localteam,

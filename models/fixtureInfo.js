@@ -4,6 +4,10 @@ let fixtureInfoSchema = new mongoose.Schema({
 
     fixtureId: { type: String, default: null },
     starting_at: { type: String, default: null },
+    round: { type: String, default: null },
+    matchDate: { type: String, default: null },
+    matchISTTime: { type: String, default: null },
+    elected: { type: String, default: null },
     league: { type: Object, default: null },
     stage: { type: Object, default: null },
     localteam: { type: Object, default: null },
