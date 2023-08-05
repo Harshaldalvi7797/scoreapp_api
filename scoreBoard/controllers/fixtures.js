@@ -56,10 +56,10 @@ exports.fixtureInfo = async (req, res) => {
             const timeComponent = moment.utc(response.data.data.starting_at,).tz('Asia/Kolkata').format('h:mm:ss.SS A');
             const storeFixtureInfo = new allModels.fixtureInfo({
                 fixtureId: response.data.data.id,
-                elected:response.data.data.elected,
+                elected: response.data.data.elected,
                 starting_at: response.data.data.starting_at,
                 round: response.data.data.round,
-                matchDate:dateComponent,
+                matchDate: dateComponent,
                 matchISTTime: timeComponent,
                 league: response.data.data.league,
                 stage: response.data.data.stage,
@@ -90,6 +90,10 @@ exports.fixtureInfo = async (req, res) => {
         return res.send({ message: error })
     }
 
+
+}
+
+exports.fixtureLineUp = async (req, res) => {
 
 }
 
