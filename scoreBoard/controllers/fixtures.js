@@ -1,7 +1,7 @@
 let allModels = require("../../utilities/allModels");
 const axios = require("axios");
 const { validationResult } = require('express-validator');
-
+const moment = require("moment")
 exports.getFixturesFromDate = async (req, res) => {
     let fixture = await allModels.newFixtures.find({ startingAt: req.query.starting_at })
     const response = []
@@ -10,6 +10,10 @@ exports.getFixturesFromDate = async (req, res) => {
         let leagues = await allModels.leagues.findOne({ LeagueId: element.league_id })
         let teamV = await allModels.team.findOne({ teamId: element.visitorteam_id })
         let teamL = await allModels.team.findOne({ teamId: element.localteam_id })
+        //const istTimestamp = moment.utc(element.starting_at).utcOffset('+05:30').format('YYYY-MM-DDTHH:mm:ss.SSSSSSZ');
+        const istTimestamp = moment.utc(element.starting_at).tz('Asia/Kolkata').format('YYYY-MM-DDTHH:mm:ss.SSSSSSZ');
+        const dateComponent = moment.utc(element.starting_at).format('YYYY-MM-DD');
+        const timeComponent = moment.utc(element.starting_at).tz('Asia/Kolkata').format('h:mm:ss.SS A');
         const fixtureResponse =
         {
             fixtureId: element.fixtureId,
@@ -24,7 +28,8 @@ exports.getFixturesFromDate = async (req, res) => {
             visitorteamFlag: teamV.image_path,
             visitorteamName: teamV.name,
             starting_at: (element.starting_at),
-            startingTime: element.starting_at
+            matchDate: dateComponent,
+            matchISTTime: timeComponent
         }
         response.push(fixtureResponse)
     }
