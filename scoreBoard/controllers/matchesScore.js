@@ -4,11 +4,18 @@ let allModels = require("../../utilities/allModels");
 
 
 
-exports.fixturesScoreLive= async (req,res)=>
+exports.fixturesScoreLiveCardDateWise = async (req, res) => {
+  let fixture = await allModels.scoreCard.find({ "createdDate": req.query.date })
 
-{
-    console.log("welcome")
-      let fixture = await allModels.scoreCard.find({ "createdDate": req.query.search })
+  return res.send({ count: fixture.length, data: fixture })
+}
 
-    return res.send(fixture)
+exports.fixtureScoreCard = async (req, res) => {
+  let fixture = await allModels.scoreCard.findOne({ "fixtureId": req.query.fixtureId })
+
+  return res.send(fixture)
+}
+
+exports.fixturesScoreDetailsBalls = async (req, res) => {
+
 }

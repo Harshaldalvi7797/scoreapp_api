@@ -44,7 +44,7 @@ exports.fixtureInfo = async (req, res) => {
     }
     try {
         let fixture = await allModels.fixtureInfo.findOne({ fixtureId: req.query.fixtureId })
-        console.log('fixture', fixture)
+        // console.log('fixture', fixture)
         if (fixture) {
             return res.send({ data: fixture })
 

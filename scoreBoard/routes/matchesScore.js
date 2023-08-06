@@ -2,7 +2,7 @@ let express = require("express");
 let router = express.Router();
 
 
-let {fixturesScoreLive } = require("../controllers/matchesScore");
+let {fixturesScoreLiveCardDateWise, fixtureScoreCard } = require("../controllers/matchesScore");
 
 
 router.get('/startInterval', function() {
@@ -11,6 +11,8 @@ router.get('/startInterval', function() {
     }, 1000);
 });
 
-router.get("/fixture/score", fixturesScoreLive)
+router.get("/fixtures/live/score", fixturesScoreLiveCardDateWise)
+
+router.get("/fixture/score/card", fixtureScoreCard)
 
 module.exports = router;
