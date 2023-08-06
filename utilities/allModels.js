@@ -9,7 +9,8 @@ const ALL_MODELS = {
     team: require("./../models/teams"),
     scoreCard: require("./../models/liveScoreCard"),
     players: require("./../models/players"),
-    venues: require("./../models/venues")
+    venues: require("./../models/venues"),
+    ballByball: require("./../models/ballByBall")
 }
 
 module.exports = ALL_MODELS;
