@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 
-let fixturesSchema = new mongoose.Schema({
+let ballByBallSchema = new mongoose.Schema({
 
     resource: { type: String, default: null },
     fixtureId: { type: String, default: null },
@@ -25,7 +25,7 @@ let fixturesSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-fixturesSchema.pre('save', function (next) {
+ballByBallSchema.pre('save', function (next) {
     if (this.createdAt) {
         this.createdDate = setDateTime(this.createdAt)
     }
@@ -53,5 +53,5 @@ const setDateTime = (stringdate) => {
     return Number(`${year}${mnth}${day}`)
 }
 
-let fixturesModel = mongoose.model("fixtures", fixturesSchema);
-module.exports = fixturesModel;
+let ballModel = mongoose.model("ballbyball", ballByBallSchema);
+module.exports = ballModel;

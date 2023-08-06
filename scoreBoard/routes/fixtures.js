@@ -3,7 +3,7 @@ let router = express.Router();
 let { body, query } = require("express-validator");
 
 
-let {getFixturesFromDate, fixtureInfo} = require("../controllers/fixtures");
+let {getFixturesFromDate, fixtureInfo, fixtureLineUp} = require("../controllers/fixtures");
 
 
 router.get("/tilltoss/fixtures", getFixturesFromDate)
@@ -14,4 +14,10 @@ router.get("/tilltoss/fixtures/info",
 
 ],
 fixtureInfo)
+router.get("/tilltoss/fixtures/lineup",
+[
+    query("fixtureId").notEmpty().withMessage("Please enter a valid fixtureId."),
+
+],
+fixtureLineUp)
 module.exports = router;

@@ -72,16 +72,7 @@ exports.fixtureInfo = async (req, res) => {
                 venue: response.data.data.venue,
             })
             const data = await storeFixtureInfo.save()
-            // console.log("data", data)
-            // const res =
-            // {
-            //     fixtureId: data.fixtureId,
-            //     league: data.league,
-            //     fixtureId: data.fixtureId
 
-
-            // }
-            // console.log("Res",res)
             return res.send({ data: data })
 
         }
@@ -94,6 +85,42 @@ exports.fixtureInfo = async (req, res) => {
 }
 
 exports.fixtureLineUp = async (req, res) => {
+    const validationError = validationResult(req);
+    if (!validationError.isEmpty()) {
+        return res.status(403).send({ message: validationError.array() });
+    }
+    try {
+        let fixture = await allModels.fixtureLineUp.findOne({ fixtureId: req.query.fixtureId })
+        console.log('fixture', fixture)
+        if (fixture) {
+            return res.send({ data: fixture })
 
+        }
+        else {
+            //let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${req.query.fixtureId}?include=localteam%2Cvisitorteam%2Cvenue%2Cstage%2Cfirstumpire%2Csecondumpire%2Ctosswon%2Creferee%2Cleague&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
+
+            let response = await axios.get(`https://cricket.sportmonks.com/api/v2.0/fixtures/${req.query.fixtureId}?include=lineup%2Clocalteam%2Cvisitorteam&api_token=3YUfERt5oESjf0ioV2at8peahGCvFrSSbJJH2Cjy6pJAJD5Cu7q59wrkI2rA`)
+             console.log(response.data.data.localteam.name)
+            //  return res.send(response.data)
+            const storeFixtureLineUp = new allModels.fixtureLineUp({
+                fixtureId: response.data.data.id,
+                lineup: response.data.data.lineup,
+                localteam_id: response.data.data.localteam_id,
+                visitorteam_id: response.data.data.visitorteam.name,
+                localteam: response.data.data.localteam.name,
+
+                visitorteam: response.data.data.visitorteam_id,
+
+
+            })
+            const data = await storeFixtureLineUp.save()
+
+            return res.send({ data: data })
+
+        }
+    }
+    catch (error) {
+        return res.send({ message: error })
+    }
 }
 

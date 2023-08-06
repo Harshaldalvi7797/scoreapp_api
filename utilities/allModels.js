@@ -10,7 +10,9 @@ const ALL_MODELS = {
     scoreCard: require("./../models/liveScoreCard"),
     players: require("./../models/players"),
     venues: require("./../models/venues"),
-    ballByball: require("./../models/ballByBall")
+    ballByball: require("./../models/ballByBall"),
+    fixtureLineUp: require("./../models/fixturesLinup")
+
 }
 
 module.exports = ALL_MODELS;
